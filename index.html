@@ -4,21 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Maps Search</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" async defer></script>
+    <title>Map Selection</title>
 </head>
 
 <body>
-    <div>
-        <label for="locationInput">Enter location or coordinates:</label>
-        <input type="text" id="locationInput" placeholder="Search location or enter coordinates">
-        <button onclick="searchLocation()">Search</button>
-    </div>
+    <h1>Select a Map</h1>
+    <button onclick="goToBingMap()">Bing Map</button>
+    <button onclick="goToGoogleMap()">Google Map</button>
 
-    <div id="map" style="height: 400px;"></div>
-    <script src="scripts/google-map-manager.js"></script>
+    <script>
+        function goToBingMap() {
+            window.location.href = 'bing-map.html'; // Replace with the actual file path or URL
+        }
 
-    <footer id="dynamicFooter"></footer>
+        function goToGoogleMap() {
+            window.location.href = 'google-map.html'; // Replace with the actual file path or URL
+        }
+    </script>
+     <footer id="dynamicFooter"></footer>
     <script src="https://cdn.jsdelivr.net/gh/LogicHarvest/LogicHarvest/scripts/footer.js"></script>
 </body>
 
