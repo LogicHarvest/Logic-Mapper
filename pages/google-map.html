@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bing Maps Search</title>
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=YOUR_BING_MAPS_KEY'
-        async defer></script>
+    <title>Google Maps Search</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places" async defer></script>
 </head>
 
 <body>
@@ -15,9 +14,9 @@
         <input type="text" id="locationInput" placeholder="Search location or enter coordinates">
         <button onclick="searchLocation()">Search</button>
     </div>
-    <div id="map" style="height: 400px;"></div>
 
-    <script src="../scripts/bing-map-manager.js"></script>
+    <div id="map" style="height: 400px;"></div>
+    <script src="../scripts/google-map-manager.js"></script>
 
     <footer id="dynamicFooter"></footer>
     <script src="https://cdn.jsdelivr.net/gh/LogicHarvest/LogicHarvest/scripts/footer.js"></script>
