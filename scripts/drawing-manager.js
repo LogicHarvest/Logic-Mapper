@@ -1,38 +1,39 @@
-// Initialize the map
-function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 0, lng: 0},
-        zoom: 2
-    });
+var map;
 
-    // Initialize DrawingManager
-    var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.MARKER,
-        drawingControl: true,
-        drawingControlOptions: {
-            position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: ['marker', 'polygon', 'circle']
+        function GetMap() {
+            map = new Microsoft.Maps.Map(document.getElementById('map'), {
+                center: new Microsoft.Maps.Location(-22.559722, 17.083611), // Center on Windhoek, Namibia
+                zoom: 10
+            });
         }
-    });
 
-    drawingManager.setMap(map);
-}
+        function searchLocation() {
+            var locationInput = document.getElementById('locationInput').value;
 
-// Load the map when the page is loaded
-google.maps.event.addDomListener(window, 'load', initMap);
+            // Use the Bing Maps Autosuggest API for location search
+            Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+                var options = {
+                    maxResults: 5,
+                    country: 'NA', // Country code for Namibia
+                    callback: onSuggestionSelected
+                };
+                var manager = new Microsoft.Maps.AutosuggestManager(options);
+                manager.getSuggestions(locationInput);
+            });
+        }
 
-google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-    if (event.type == 'marker') {
-        // Handle marker creation
-        var marker = event.overlay;
-        // Do something with the marker...
-    } else if (event.type == 'polygon') {
-        // Handle polygon creation
-        var polygon = event.overlay;
-        // Do something with the polygon...
-    } else if (event.type == 'circle') {
-        // Handle circle creation
-        var circle = event.overlay;
-        // Do something with the circle...
-    }
-});
+        function onSuggestionSelected(result) {
+            if (result && result.location) {
+                map.setView({ center: result.location, zoom: 12 });
+
+                // Clear existing entities (e.g., markers)
+                map.entities.clear();
+
+                // Add a pushpin at the selected location
+                var pushpin = new Microsoft.Maps.Pushpin(result.location, {
+                    title: result.formattedSuggestion
+                });
+
+                map.entities.push(pushpin);
+            }
+        }
