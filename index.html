@@ -1,61 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bing Maps Search</title>
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=YOUR_BING_MAPS_KEY' async defer></script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=YOUR_BING_MAPS_KEY'
+        async defer></script>
 </head>
+
 <body>
     <div>
         <label for="locationInput">Enter location or coordinates:</label>
         <input type="text" id="locationInput" placeholder="Search location or enter coordinates">
         <button onclick="searchLocation()">Search</button>
     </div>
-
-    <!-- Your map will be rendered here -->
     <div id="map" style="height: 400px;"></div>
 
-    <script>
-        var map;
+    <script src="scripts/map-manager.js"></script>
 
-        function GetMap() {
-            map = new Microsoft.Maps.Map(document.getElementById('map'), {
-                center: new Microsoft.Maps.Location(-22.559722, 17.083611), // Center on Windhoek, Namibia
-                zoom: 10
-            });
-        }
-
-        function searchLocation() {
-            var locationInput = document.getElementById('locationInput').value;
-
-            // Use the Bing Maps Autosuggest API for location search
-            Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
-                var options = {
-                    maxResults: 5,
-                    country: 'NA', // Country code for Namibia
-                    callback: onSuggestionSelected
-                };
-                var manager = new Microsoft.Maps.AutosuggestManager(options);
-                manager.getSuggestions(locationInput);
-            });
-        }
-
-        function onSuggestionSelected(result) {
-            if (result && result.location) {
-                map.setView({ center: result.location, zoom: 12 });
-
-                // Clear existing entities (e.g., markers)
-                map.entities.clear();
-
-                // Add a pushpin at the selected location
-                var pushpin = new Microsoft.Maps.Pushpin(result.location, {
-                    title: result.formattedSuggestion
-                });
-
-                map.entities.push(pushpin);
-            }
-        }
-    </script>
+    <footer id="dynamicFooter"></footer>
+    <script src="https://raw.githubusercontent.com/LogicHarvest/LogicHarvest/main/scripts/footer.js"></script>
 </body>
+
 </html>
